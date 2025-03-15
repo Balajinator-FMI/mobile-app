@@ -1,5 +1,9 @@
 import 'package:app/feature/register/register_view.dart';
+import 'package:app/static/dependency_injection.dart';
+import 'package:app/util/user_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'feature/chat/chat_view.dart';
 import 'feature/home/home_view.dart';
@@ -9,20 +13,39 @@ import 'feature/search/search_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  await dotenv.load(fileName: '.env');
+  DependencyInjection.configure();
+
+  final initialRoute = await _getInitialRoute();
+
+  runApp(MyApp(initialRoute: initialRoute));
+}
+
+Future<String> _getInitialRoute() async {
+  final userStorage = DependencyInjection.getIt<UserStorage>();
+  final hasUserId = await userStorage.hasUserId();
+
+  if (!hasUserId) {
+    return 'register';
+  }
+
+  return 'home';
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String initialRoute;
+
+  const MyApp({required this.initialRoute, super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'App',
-      initialRoute: 'register',
+      navigatorKey: StackedService.navigatorKey,
+      initialRoute: initialRoute,
       routes: {
-        'register': (context) => const RegisterView(),
+        'register': (context) => RegisterView(),
         'home': (context) => const HomeView(),
         'search': (context) => const SearchView(),
         'search-result': (context) => const SearchResultView(),
