@@ -1,6 +1,6 @@
 import 'package:app/feature/register/register_view.dart';
 import 'package:app/static/dependency_injection.dart';
-import 'package:app/util/user_storage.dart';
+import 'package:app/storage/user_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -22,11 +22,11 @@ void main() async {
 }
 
 Future<String> _getInitialRoute() async {
-  final userStorage = DependencyInjection.getIt<UserStorage>();
+  final userStorage = DependencyInjection.getIt<UserSecureStorage>();
   final hasUserId = await userStorage.hasUserId();
 
   if (!hasUserId) {
-    return 'register';
+    return 'home';
   }
 
   return 'home';
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       initialRoute: initialRoute,
       routes: {
         'register': (context) => RegisterView(),
-        'home': (context) => const HomeView(),
+        'home': (context) => HomeView(),
         'search': (context) => const SearchView(),
         'search-result': (context) => const SearchResultView(),
         'chat': (context) => const ChatView(),

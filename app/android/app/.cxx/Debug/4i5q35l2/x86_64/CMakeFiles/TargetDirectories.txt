@@ -1,0 +1,2 @@
+C:/Users/yasen/IdeaProjects/FMICodes/mobile-app/app/android/app/.cxx/Debug/4i5q35l2/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/yasen/IdeaProjects/FMICodes/mobile-app/app/android/app/.cxx/Debug/4i5q35l2/x86_64/CMakeFiles/rebuild_cache.dir

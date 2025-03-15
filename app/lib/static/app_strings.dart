@@ -28,6 +28,7 @@ class AppStrings {
   // Errors:
   static const String failedToEstablishConnectionWithServer = 'Failed to establish connection with the server';
   static const String failedToRegisterUser = 'Failed to register user';
+  static const String failedToLoadLocationData = 'Failed to load location data';
 
   // Buttons:
   static const String register = 'Register';
