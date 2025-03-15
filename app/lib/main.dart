@@ -1,5 +1,7 @@
 import 'package:app/feature/register/register_view.dart';
+import 'package:app/static/dependency_injection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'feature/chat/chat_view.dart';
 import 'feature/home/home_view.dart';
@@ -8,6 +10,10 @@ import 'feature/search/search_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: '.env');
+
+  DependencyInjection.configure();
 
   runApp(const MyApp());
 }
