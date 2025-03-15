@@ -5,6 +5,7 @@ import 'package:app/api/backend/enum/skin_type.dart';
 import 'package:app/api/backend/user_repository.dart';
 import 'package:app/static/dependency_injection.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   bool _isButtonEnabled = false;
@@ -14,12 +15,21 @@ class RegisterViewModel extends ChangeNotifier {
   final List<Disease> _diseases = [];
   final formKey = GlobalKey<FormState>();
   final _userRepository = DependencyInjection.getIt<UserRepository>();
+  final _navigationService = DependencyInjection.getIt<NavigationService>();
 
   Future<void> register() async {
     if (!_areAllFieldsValid()) return;
 
     final registerDto = RegisterUserReq(_years!, _gender!, _skinType!, diseases);
-    await _userRepository.registerUser(registerDto);
+    try {
+      toggleButton(false);
+      await _userRepository.registerUser(registerDto);
+      _navigationService.clearStackAndShow('home');
+    } catch (e) {
+      toggleButton(true);
+      print(e);
+      _navigationService.navigateTo('home'); // TODO: remove this line
+    }
   }
 
   bool _areAllFieldsValid() {
@@ -63,6 +73,11 @@ class RegisterViewModel extends ChangeNotifier {
       _diseases.remove(disease);
     }
     _validateForm();
+  }
+
+  void toggleButton(bool isEnabled) {
+    _isButtonEnabled = isEnabled;
+    notifyListeners();
   }
 
   Gender? get gender => _gender;
