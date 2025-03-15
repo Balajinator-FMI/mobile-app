@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app/api/backend/backend_api_uri.dart';
+import 'package:app/api/backend/dto/fetch_location_data_res.dart';
 import 'package:app/api/backend/dto/register_user_req.dart';
 import 'package:app/api/backend/dto/register_user_res.dart';
 import 'package:app/static/app_strings.dart';
@@ -22,11 +23,26 @@ class UserService {
       throw Exception(AppStrings.failedToEstablishConnectionWithServer);
     });
 
-    if (response.statusCode == HttpStatus.ok) {
+    if (response.statusCode == HttpStatus.created) {
       final responseBody = json.decode(response.body);
       return RegisterUserRes.fromJson(responseBody);
     } else {
       throw Exception(AppStrings.failedToRegisterUser);
+    }
+  }
+
+  Future<FetchLocationDataRes> fetchLocationData(String userId, double lat, double lng, {bool forecastHistory = true}) async {
+    final response = await http
+    .get(_backendApiUri.fetchLocationData(userId, lat, lng, forecastHistory))
+    .onError((error, stackTrace) {
+      throw Exception(AppStrings.failedToEstablishConnectionWithServer);
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      final responseBody = json.decode(response.body);
+      return FetchLocationDataRes.fromJson(responseBody);
+    } else {
+      throw Exception(AppStrings.failedToLoadLocationData);
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class UserStorage {
+class UserSecureStorage {
   static const _userIdKey = 'userId';
   String _userId = '';
   final _secureStorage = const FlutterSecureStorage();
