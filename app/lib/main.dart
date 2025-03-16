@@ -26,7 +26,7 @@ Future<String> _getInitialRoute() async {
   final hasUserId = await userStorage.hasUserId();
 
   if (hasUserId) {
-    return 'register';
+    return 'chat';
   }
 
   return 'home';

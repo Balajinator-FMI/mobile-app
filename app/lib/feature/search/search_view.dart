@@ -94,8 +94,8 @@ class SearchView extends StatelessWidget {
           child: Column(
             children: [
               UvCardView(
-                uvData: model.locationData!.current,
-                reccOutdoorTime: model.locationData!.reccOutdoorTime,
+                uvData: model.locationData!.currentUvData,
+                reccOutdoorTime: model.locationData!.recOutdoor,
                 factor: model.locationData!.factor,
               ),
 

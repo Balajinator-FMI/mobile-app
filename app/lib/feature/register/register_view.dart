@@ -37,7 +37,6 @@ class RegisterView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-
                       _buildSectionTitle('Gender'),
                       Row(
                         children: [
@@ -47,7 +46,6 @@ class RegisterView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-
                       _buildSectionTitle('Age'),
                       const SizedBox(height: 10),
                       _buildTextField(
@@ -58,16 +56,13 @@ class RegisterView extends StatelessWidget {
                         validator: (_) => viewModel.ageErrorMessage,
                       ),
                       const SizedBox(height: 16),
-
                       _buildSectionTitle('Skin Type'),
                       const SizedBox(height: 10),
                       _buildCards(viewModel),
                       const SizedBox(height: 16),
-
                       _buildSectionTitle('Diseases'),
                       _buildDiseasesSelection(viewModel),
                       const SizedBox(height: 24),
-
                       PrimaryButton(
                         isDisabled: !viewModel.isButtonEnabled,
                         text: 'Register',
@@ -147,7 +142,7 @@ class RegisterView extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: SkinType.values.length,
         itemBuilder: (context, index) {
-        bool isSelected = (SkinType.values[index].name == viewModel.skinType?.name);
+          bool isSelected = (SkinType.values[index].name == viewModel.skinType?.name);
           return GestureDetector(
             onTap: () {
               viewModel.setSkinType(SkinType.values[index]);
