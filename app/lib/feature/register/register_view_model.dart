@@ -16,6 +16,7 @@ class RegisterViewModel extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
   final _userRepository = DependencyInjection.getIt<UserRepository>();
   final _navigationService = DependencyInjection.getIt<NavigationService>();
+  final ageController = TextEditingController();
 
   Future<void> register() async {
     if (!_areAllFieldsValid()) return;
