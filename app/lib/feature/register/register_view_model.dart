@@ -33,11 +33,10 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   bool _areAllFieldsValid() {
-    return _gender != null &&
-        _years != null &&
-        _validateYears(_years) == null &&
-        _skinType != null &&
-        _diseases.isNotEmpty;
+    return _gender != null 
+        && _years != null 
+        && _validateYears(_years) == null 
+        && _skinType != null;
   }
 
   void _validateForm() {

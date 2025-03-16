@@ -60,7 +60,7 @@ class RegisterView extends StatelessWidget {
                       const SizedBox(height: 10),
                       _buildCards(viewModel),
                       const SizedBox(height: 16),
-                      _buildSectionTitle('Diseases'),
+                      _buildSectionTitle('Diseases (optional)'),
                       _buildDiseasesSelection(viewModel),
                       const SizedBox(height: 24),
                       PrimaryButton(
