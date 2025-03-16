@@ -13,4 +13,13 @@ class AppStyle {
   static final Color textColorWith07Opacity = textColor.withOpacity(0.7);
   static const Color iconColor = Colors.white;
   static const Color dividerColor = Colors.white;
+  static const List<Color> skinColors = [
+    Color(0xFFFFDFC4), // Type 1
+    Color(0xFFF0D5BE), // Type 2
+    Color(0xFFE1B899), // Type 3
+    Color(0xFFC68642), // Type 4
+    Color(0xFF8D5524), // Type 5
+    Color(0xFF5D3A1A), // Type 6
+  ];
+
 }

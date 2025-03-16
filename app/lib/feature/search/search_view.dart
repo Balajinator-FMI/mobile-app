@@ -1,80 +1,113 @@
+import 'package:app/feature/search/search_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:location/location.dart';
-import '../../api/google-maps/google_maps_api_service.dart';
+import 'package:provider/provider.dart';
 import '../../api/google-maps/model/city_model.dart';
+import '../../static/app_style.dart';
+import '../home/views/advice_view.dart';
+import '../home/views/forecast_view.dart';
+import '../home/views/uv_card_view.dart';
 
-class SearchView extends StatefulWidget {
+class SearchView extends StatelessWidget {
   const SearchView({super.key});
 
   @override
-  _SearchViewState createState() => _SearchViewState();
-}
-
-class _SearchViewState extends State<SearchView> {
-  final GoogleMapsApiService _googleMapsApiService = GoogleMapsApiService();
-  final TextEditingController _controller = TextEditingController();
-  final Location _location = Location();
-
-  Future<List<CityModel>> _getCitySuggestions(String query) async {
-    if (query.isEmpty) return [];
-
-    try {
-      LocationData currentLocation = await _location.getLocation();
-      return await _googleMapsApiService.autocomplete(query, currentLocation);
-    } catch (error) {
-      return [];
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('City Search')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TypeAheadField<CityModel>(
-              builder: (context, controller, focusNode) {
-                return TextField(
-                  controller: controller,
-                  focusNode: focusNode,
-                  decoration: const InputDecoration(
-                    labelText: 'Search for a city',
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.search),
+    return ChangeNotifierProvider(
+      create: (_) => SearchViewModel(),
+      child: Consumer<SearchViewModel>(
+        builder: (context, model, child) {
+          return Scaffold(
+            backgroundColor: Colors.black,
+            // appBar: AppBar(title: const Text('City Search')),
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  TypeAheadField<CityModel>(
+                    builder: (context, controller, focusNode) {
+                      model.controller = controller;
+                      return TextField(
+                        controller: controller,
+                        focusNode: focusNode,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: const InputDecoration(
+                          labelText: 'Search for a city',
+                          labelStyle: TextStyle(color: Colors.white),
+                          hintStyle: TextStyle(color: Colors.white),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          suffixIcon: Icon(Icons.search),
+                          filled: true,
+                          fillColor: AppStyle.secondaryColor1,
+                        ),
+                      );
+                    },
+                    suggestionsCallback: model.getCitySuggestions,
+                    itemBuilder: (context, CityModel city) {
+                      return ListTile(
+                        title: Text(city.name),
+                        textColor: Colors.white,
+                        tileColor: AppStyle.secondaryColor2,
+                      );
+                    },
+                    loadingBuilder: (context) {
+                      return const ListTile(
+                        title: Text('Searching...'),
+                        textColor: Colors.white,
+                        tileColor: AppStyle.secondaryColor2,
+                      );
+                    },
+                    emptyBuilder: (context) {
+                      return const ListTile(
+                        title: Text('No results found'),
+                        textColor: Colors.white,
+                        tileColor: AppStyle.secondaryColor2,
+                      );
+                    },
+                    onSelected: (CityModel city) {
+                      model.selectCity(city);
+                      model.controller.text = city.name;
+                      FocusScope.of(context).unfocus();
+                    },
                   ),
-                );
-              },
-              suggestionsCallback: _getCitySuggestions,
-              itemBuilder: (context, CityModel city) {
-                return ListTile(
-                  title: Text(city.name),
-                );
-              },
-              onSelected: (CityModel city) {
-                _controller.text = city.name;
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    title: const Text('City Selected'),
-                    content: Text('You selected: ${city.name}'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
-              },
+
+                  const SizedBox(height: 20),
+
+                  if (model.selectedCity != null)
+                    Expanded(child: _buildBody(model)),
+                ],
+              ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
+  }
+
+  Widget _buildBody(SearchViewModel model) {
+    return model.isLoading
+      ? const Center(child: CircularProgressIndicator())
+      : SingleChildScrollView(
+          child: Column(
+            children: [
+              UvCardView(
+                uvData: model.locationData!.current,
+                reccOutdoorTime: model.locationData!.reccOutdoorTime,
+                factor: model.locationData!.factor,
+              ),
+
+              const SizedBox(height: 20),
+
+              AdviceView(advice: model.locationData!.advice),
+
+              const SizedBox(height: 20),
+
+              ForecastView(forecast: model.locationData!.forecast),
+            ]
+          )
+        );
   }
 }

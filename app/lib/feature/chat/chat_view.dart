@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app/static/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,8 +27,7 @@ class ChatView extends StatelessWidget {
               ),
               centerTitle: true,
               toolbarHeight: 50,
-              backgroundColor: Colors.grey[900],
-              foregroundColor: Colors.white,
+              backgroundColor: AppStyle.secondaryColor1,
             ),
             body: Column(
               children: [
@@ -42,29 +42,32 @@ class ChatView extends StatelessWidget {
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                           padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: message.isUser
-                                  ? [Colors.lightBlueAccent, Colors.blueAccent]
-                                  : [Colors.grey[900]!, Colors.grey[900]!],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                           child: message.imageUrl != null
-                              ? Image.file(
-                            File(message.imageUrl!),
-                            width: 200,
-                            height: 200,
-                            fit: BoxFit.cover,
-                          )
-                              : Text(
-                            message.text,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
+                            ? Image.file(
+                                File(message.imageUrl!),
+                                width: 200,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              )
+                            : Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: message.isUser
+                                      ? [Colors.blue, Colors.blueAccent]
+                                      : [AppStyle.secondaryColor2, AppStyle.secondaryColor2],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                message.text,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
                           ),
                         ),
                       );
@@ -75,7 +78,7 @@ class ChatView extends StatelessWidget {
                   height: 80,
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: Colors.grey[900],
+                    color: AppStyle.secondaryColor1,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -84,7 +87,7 @@ class ChatView extends StatelessWidget {
                         icon: const Icon(Icons.camera_alt),
                         color: Colors.grey[100],
                         style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(Colors.grey[850]),
+                          backgroundColor: WidgetStateProperty.all(AppStyle.secondaryColor2),
                         ),
                         onPressed: model.pickImage,
                       ),
@@ -107,9 +110,8 @@ class ChatView extends StatelessWidget {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: const BorderRadius.all(Radius.circular(10)),
-                              borderSide: BorderSide(color: Colors.grey[700]!
-                              ),
-                            )
+                              borderSide: BorderSide(color: Colors.grey[700]!),
+                            ),
                           ),
                           onChanged: (_) => model.checkButtonStatus(),
                         ),
@@ -118,8 +120,8 @@ class ChatView extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.send),
                         color: model.isMessageEmtpy
-                          ? Colors.grey[500]
-                          : Colors.white,
+                          ? const Color(0xFF5A5A5A)
+                          : AppStyle.contrastColor1,
                         onPressed: model.sendMessage,
                       ),
                     ],
