@@ -1,3 +1,4 @@
+import 'package:app/feature/outdoor-tracking/outdoor_tracking.dart';
 import 'package:app/feature/register/register_view.dart';
 import 'package:app/static/dependency_injection.dart';
 import 'package:app/storage/user_secure_storage.dart';
@@ -17,6 +18,9 @@ void main() async {
   DependencyInjection.configure();
 
   final initialRoute = await _getInitialRoute();
+  // await initLocationService();
+  // startActivityTracking();
+  // startLocationTracking();
 
   runApp(MyApp(initialRoute: initialRoute));
 }
@@ -25,8 +29,8 @@ Future<String> _getInitialRoute() async {
   final userStorage = DependencyInjection.getIt<UserSecureStorage>();
   final hasUserId = await userStorage.hasUserId();
 
-  if (hasUserId) {
-    return 'chat';
+  if (!hasUserId) {
+    return 'register';
   }
 
   return 'home';

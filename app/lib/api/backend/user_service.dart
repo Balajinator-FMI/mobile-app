@@ -44,6 +44,8 @@ class UserService {
   }
 
   Future<FetchLocationDataRes> fetchLocationData(String userId, double lat, double lng) async {
+    print(_backendApiUri.fetchLocationData(userId, lat, lng));
+
     final response = await http.get(_backendApiUri.fetchLocationData(userId, lat, lng)).onError((error, stackTrace) {
       throw Exception(AppStrings.failedToEstablishConnectionWithServer);
     });

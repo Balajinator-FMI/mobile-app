@@ -62,7 +62,7 @@ class ChatViewModel extends ChangeNotifier {
 
       messages.add(ChatMessage(
         text:
-            'There is ${result['probability']}% chance that you have ${result['disease']} - ${getDiseaseDescription(result['disease'] as String)}.',
+            'There is ${result['probability']}% chance that you have ${result['disease']} - ${getDiseaseDescription(result['disease'] as String)}',
         isUser: false,
       ));
       notifyListeners();

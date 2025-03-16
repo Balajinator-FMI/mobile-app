@@ -14,4 +14,15 @@ class GoogleMapsApiUri {
       }),
     );
   }
+
+  Uri getCoordinatesFromPlaceId(String placeId) {
+    return Uri.https(
+      _baseUrl,
+      '/maps/api/place/details/json',
+      {
+        'place_id': placeId,
+        'key': _apiKey,
+      },
+    );
+  }
 }

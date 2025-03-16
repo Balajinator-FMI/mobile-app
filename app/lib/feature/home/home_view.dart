@@ -37,6 +37,7 @@ class HomeView extends StatelessWidget {
   Widget _buildBody(HomeViewModel viewModel) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           UvCardView(
             uvData: viewModel.locationData.currentUvData,
@@ -46,8 +47,26 @@ class HomeView extends StatelessWidget {
           const SizedBox(height: 16),
           AdviceView(advice: viewModel.locationData.advice),
           const SizedBox(height: 16),
+          Text(
+            'Forecast',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
           ForecastView(forecast: viewModel.locationData.forecast),
           const SizedBox(height: 16),
+          Text(
+            'Outdoor Time',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
           UVTimeBarChartView(outdoorTimes: viewModel.getOutdoorTimes()),
         ],
       ),

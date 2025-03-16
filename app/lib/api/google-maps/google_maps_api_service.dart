@@ -12,22 +12,35 @@ class GoogleMapsApiService {
   final GoogleMapsApiUri _apiUri = DependencyInjection.getIt<GoogleMapsApiUri>();
 
   Future<List<CityModel>> autocomplete(String input, LocationData origin) async {
-    final response = await http.get(_apiUri.autocomplete({
+    final response = await http
+        .get(_apiUri.autocomplete({
       'input': input,
       'origin': '${origin.latitude},${origin.longitude}',
       'locationbias': 'ipbias',
       'types': '(cities)',
-    })).onError((error, stackTrace) {
+    }))
+        .onError((error, stackTrace) {
       throw Exception('Failed to load cities');
     });
 
     if (response.statusCode == HttpStatus.ok) {
       final responseBody = json.decode(response.body);
-      return responseBody['predictions']
-          .map<CityModel>((city) => CityModel.fromJson(city)).
-          toList();
+      print(responseBody);
+      return responseBody['predictions'].map<CityModel>((city) => CityModel.fromJson(city)).toList();
     } else {
       throw Exception('Failed to load cities');
     }
+  }
+
+  Future<Map<String, double>> getCoordinatesFromPlaceId(String placeId) async {
+    final response = await http.get(_apiUri.getCoordinatesFromPlaceId(placeId));
+
+    final data = jsonDecode(response.body);
+    final location = data['result']['geometry']['location'];
+
+    return {
+      'lat': location['lat'],
+      'lon': location['lng'], // Note: Google returns 'lng', not 'lon'
+    };
   }
 }

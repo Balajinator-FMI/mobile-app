@@ -81,13 +81,13 @@ class UVTimeBarChartView extends StatelessWidget {
           BarChartRodData(
             toY: data['uvIndex'].toDouble(),
             width: 10,
-            color: Colors.cyanAccent,
+            color: Colors.pinkAccent,
             borderRadius: BorderRadius.circular(6),
           ),
           BarChartRodData(
             toY: data['totalHours'].toDouble(),
             width: 10,
-            color: Colors.pinkAccent,
+            color: Colors.cyanAccent,
             borderRadius: BorderRadius.circular(6),
           ),
         ],

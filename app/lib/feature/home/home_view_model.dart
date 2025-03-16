@@ -1,4 +1,3 @@
-import 'package:app/api/backend/dto/curr_uv_data.dart';
 import 'package:app/api/backend/dto/fetch_location_data_res.dart';
 import 'package:app/api/backend/dto/forecast_item.dart';
 import 'package:app/api/backend/user_repository.dart';
@@ -52,6 +51,8 @@ class HomeViewModel extends ChangeNotifier {
         orElse: () => ForecastItem.empty(),
       );
 
+      print(_locationData!.pastWeek);
+
       if (matchedForecast != ForecastItem.empty()) {
         outdoorTimes.add({
           'totalHours': el.totalHours,
@@ -59,6 +60,8 @@ class HomeViewModel extends ChangeNotifier {
           'uvIndex': matchedForecast.uvIndex,
         });
       }
+
+      print(outdoorTimes);
     }
 
     return outdoorTimes;

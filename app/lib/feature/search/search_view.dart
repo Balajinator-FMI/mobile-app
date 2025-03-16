@@ -73,11 +73,8 @@ class SearchView extends StatelessWidget {
                       FocusScope.of(context).unfocus();
                     },
                   ),
-
                   const SizedBox(height: 20),
-
-                  if (model.selectedCity != null)
-                    Expanded(child: _buildBody(model)),
+                  if (model.selectedCity != null) Expanded(child: _buildBody(model)),
                 ],
               ),
             ),
@@ -89,25 +86,31 @@ class SearchView extends StatelessWidget {
 
   Widget _buildBody(SearchViewModel model) {
     return model.isLoading
-      ? const Center(child: CircularProgressIndicator())
-      : SingleChildScrollView(
-          child: Column(
-            children: [
-              UvCardView(
-                uvData: model.locationData!.currentUvData,
-                reccOutdoorTime: model.locationData!.recOutdoor,
-                factor: model.locationData!.factor,
-              ),
-
-              const SizedBox(height: 20),
-
-              AdviceView(advice: model.locationData!.advice),
-
-              const SizedBox(height: 20),
-
-              ForecastView(forecast: model.locationData!.forecast),
-            ]
-          )
-        );
+        ? const Center(child: CircularProgressIndicator())
+        : SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UvCardView(
+                  uvData: model.locationData!.currentUvData,
+                  reccOutdoorTime: model.locationData!.recOutdoor,
+                  factor: model.locationData!.factor,
+                ),
+                const SizedBox(height: 16),
+                AdviceView(advice: model.locationData!.advice),
+                const SizedBox(height: 16),
+                Text(
+                  'Forecast',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                ForecastView(forecast: model.locationData!.forecast),
+              ],
+            ),
+          );
   }
 }
