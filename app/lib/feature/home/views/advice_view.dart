@@ -9,7 +9,7 @@ class AdviceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 130,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -29,10 +29,10 @@ class AdviceView extends StatelessWidget {
               advice,
               style: const TextStyle(
                 color: AppStyle.textColor,
-                fontSize: 16,
+                fontSize: 14,
               ),
               softWrap: true,
-              maxLines: 3,
+              maxLines: 5,
               overflow: TextOverflow.ellipsis,
             ),
           ),

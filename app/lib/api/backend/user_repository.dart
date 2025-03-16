@@ -10,19 +10,16 @@ class UserRepository {
 
   Future<void> registerUser(RegisterUserReq userData) async {
     final result = await _userService.registerUser(userData);
-    await _userSecureStorage.saveUserId(result.userId);
-  }
-
-  Future<FetchLocationDataRes> _fetchLocationData(double lat, double lng, {bool forecastHistory = true}) async {
-    final userId = await _userSecureStorage.getUserId();
-    return await _userService.fetchLocationData(userId, lat, lng, forecastHistory: forecastHistory);
-  }
-
-  Future<FetchLocationDataRes> fetchCurrentLocationData(double lat, double lng) async {
-    return await _fetchLocationData(lat, lng);
+    print(result);
+    await _userSecureStorage.saveUserId(result.id);
   }
 
   Future<FetchLocationDataRes> fetchLocationData(double lat, double lng) async {
-    return await _fetchLocationData(lat, lng, forecastHistory: false);
+    final userId = await _userSecureStorage.getUserId();
+    return await _userService.fetchLocationData(userId, lat, lng);
+  }
+
+  Future<Map<String, Object>> diagnoseUser(String base64Image) async {
+    return await _userService.diagnoseUser(base64Image);
   }
 }

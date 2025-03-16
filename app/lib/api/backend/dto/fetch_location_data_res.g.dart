@@ -12,11 +12,11 @@ FetchLocationDataRes _$FetchLocationDataResFromJson(
       (json['forecast'] as List<dynamic>)
           .map((e) => ForecastItem.fromJson(e as Map<String, dynamic>))
           .toList(),
-      (json['forecastHistory'] as List<dynamic>?)
-          ?.map((e) => ForecastItem.fromJson(e as Map<String, dynamic>))
+      (json['pastWeek'] as List<dynamic>)
+          .map((e) => ForecastItem.fromJson(e as Map<String, dynamic>))
           .toList(),
-      CurrUvData.fromJson(json['current'] as Map<String, dynamic>),
-      (json['reccOutdoorTime'] as num).toInt(),
+      CurrUvData.fromJson(json['currentUvData'] as Map<String, dynamic>),
+      (json['recOutdoor'] as num).toInt(),
       json['advice'] as String,
       (json['factor'] as num).toInt(),
     );
@@ -25,9 +25,9 @@ Map<String, dynamic> _$FetchLocationDataResToJson(
         FetchLocationDataRes instance) =>
     <String, dynamic>{
       'forecast': instance.forecast,
-      'forecastHistory': instance.forecastHistory,
-      'current': instance.current,
-      'reccOutdoorTime': instance.reccOutdoorTime,
+      'pastWeek': instance.pastWeek,
+      'currentUvData': instance.currentUvData,
+      'recOutdoor': instance.recOutdoor,
       'advice': instance.advice,
       'factor': instance.factor,
     };

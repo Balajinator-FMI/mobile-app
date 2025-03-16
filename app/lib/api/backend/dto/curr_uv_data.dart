@@ -4,15 +4,14 @@ part 'curr_uv_data.g.dart';
 
 @JsonSerializable()
 class CurrUvData {
-  @JsonKey(name: 'uv_index')
-  final int UVIndex;
-  final double temp;
+  final int uvIndex;
+  final double temperatureC;
   final DateTime sunrise;
   final DateTime sunset;
 
   CurrUvData(
-    this.UVIndex,
-    this.temp,
+    this.uvIndex,
+    this.temperatureC,
     this.sunrise,
     this.sunset,
   );

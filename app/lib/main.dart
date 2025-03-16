@@ -25,8 +25,8 @@ Future<String> _getInitialRoute() async {
   final userStorage = DependencyInjection.getIt<UserSecureStorage>();
   final hasUserId = await userStorage.hasUserId();
 
-  if (!hasUserId) {
-    return 'home';
+  if (hasUserId) {
+    return 'register';
   }
 
   return 'home';

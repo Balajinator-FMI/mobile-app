@@ -3,7 +3,9 @@ import 'package:app/feature/home/views/advice_view.dart';
 import 'package:app/feature/home/views/forecast_view.dart';
 import 'package:app/feature/home/views/uv_card_view.dart';
 import 'package:app/feature/home/views/uv_time_bar_chart_view.dart';
+import 'package:app/static/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -27,27 +29,57 @@ class HomeView extends StatelessWidget {
             ),
           ),
         ),
+        floatingActionButton: buildSpeedDial(),
       ),
     );
   }
-}
 
-Widget _buildBody(HomeViewModel viewModel) {
-  return SingleChildScrollView(
-    child: Column(
+  Widget _buildBody(HomeViewModel viewModel) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          UvCardView(
+            uvData: viewModel.locationData.currentUvData,
+            reccOutdoorTime: viewModel.locationData.recOutdoor,
+            factor: viewModel.locationData.factor,
+          ),
+          const SizedBox(height: 16),
+          AdviceView(advice: viewModel.locationData.advice),
+          const SizedBox(height: 16),
+          ForecastView(forecast: viewModel.locationData.forecast),
+          const SizedBox(height: 16),
+          UVTimeBarChartView(outdoorTimes: viewModel.getOutdoorTimes()),
+        ],
+      ),
+    );
+  }
+
+  Widget buildSpeedDial() {
+    return SpeedDial(
+      animatedIcon: AnimatedIcons.menu_close,
+      animatedIconTheme: IconThemeData(size: 28.0),
+      backgroundColor: AppStyle.contrastColor1,
+      foregroundColor: Colors.white,
+      visible: true,
+      curve: Curves.bounceInOut,
       children: [
-        UvCardView(
-          uvData: viewModel.locationData.current,
-          reccOutdoorTime: viewModel.locationData.reccOutdoorTime,
-          factor: viewModel.locationData.factor,
+        SpeedDialChild(
+          child: Icon(Icons.search, color: Colors.white),
+          backgroundColor: AppStyle.contrastColor1,
+          onTap: () => _viewModel.navigateToSearch(),
+          label: 'Search',
+          labelStyle: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+          labelBackgroundColor: Colors.black,
         ),
-        const SizedBox(height: 16),
-        AdviceView(advice: viewModel.locationData.advice),
-        const SizedBox(height: 16),
-        ForecastView(forecast: viewModel.locationData.forecast),
-        const SizedBox(height: 16),
-        UVTimeBarChartView(outdoorTimes: viewModel.getOutdoorTimes()),
+        SpeedDialChild(
+          child: Icon(Icons.chat, color: Colors.white),
+          backgroundColor: AppStyle.contrastColor1,
+          onTap: () => _viewModel.navigateToChat(),
+          label: 'Diagnostic',
+          labelStyle: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+          labelBackgroundColor: Colors.black,
+        ),
       ],
-    ),
-  );
+    );
+  }
 }

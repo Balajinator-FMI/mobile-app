@@ -7,12 +7,12 @@ part of 'forecast_item.dart';
 // **************************************************************************
 
 ForecastItem _$ForecastItemFromJson(Map<String, dynamic> json) => ForecastItem(
-      (json['uv_index'] as num).toInt(),
+      (json['uvIndex'] as num).toInt(),
       json['date'] as String,
     );
 
 Map<String, dynamic> _$ForecastItemToJson(ForecastItem instance) =>
     <String, dynamic>{
-      'uv_index': instance.UVIndex,
+      'uvIndex': instance.uvIndex,
       'date': instance.date,
     };

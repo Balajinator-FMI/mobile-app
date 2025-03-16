@@ -31,7 +31,7 @@ class UvCardView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "${uvData.UVIndex} UV",
+                "${uvData.uvIndex} UV",
                 style: const TextStyle(
                   color: AppStyle.textColor,
                   fontSize: 42,
@@ -42,7 +42,7 @@ class UvCardView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _getUVIndexLabel(uvData.UVIndex),
+                    _getUVIndexLabel(uvData.uvIndex),
                     style: const TextStyle(
                       color: AppStyle.textColor,
                       fontSize: 16,
@@ -65,7 +65,7 @@ class UvCardView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          AQISpectrumChart(aqiValue: uvData.UVIndex),
+          AQISpectrumChart(aqiValue: uvData.uvIndex),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -7,16 +7,16 @@ part of 'curr_uv_data.dart';
 // **************************************************************************
 
 CurrUvData _$CurrUvDataFromJson(Map<String, dynamic> json) => CurrUvData(
-      (json['uv_index'] as num).toInt(),
-      (json['temp'] as num).toDouble(),
+      (json['uvIndex'] as num).toInt(),
+      (json['temperatureC'] as num).toDouble(),
       DateTime.parse(json['sunrise'] as String),
       DateTime.parse(json['sunset'] as String),
     );
 
 Map<String, dynamic> _$CurrUvDataToJson(CurrUvData instance) =>
     <String, dynamic>{
-      'uv_index': instance.UVIndex,
-      'temp': instance.temp,
+      'uvIndex': instance.uvIndex,
+      'temperatureC': instance.temperatureC,
       'sunrise': instance.sunrise.toIso8601String(),
       'sunset': instance.sunset.toIso8601String(),
     };

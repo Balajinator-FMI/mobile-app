@@ -43,4 +43,8 @@ const _$DiseaseEnumMap = {
   Disease.psoriasis: 'psoriasis',
   Disease.acne: 'acne',
   Disease.vitiligo: 'vitiligo',
+  Disease.rosacea: 'rosacea',
+  Disease.eczema: 'eczema',
+  Disease.lupus: 'lupus',
+  Disease.melasma: 'melasma',
 };

@@ -4,9 +4,9 @@ part 'register_user_res.g.dart';
 
 @JsonSerializable()
 class RegisterUserRes {
-  final String userId;
+  final String id;
 
-  RegisterUserRes(this.userId);
+  RegisterUserRes(this.id);
 
   factory RegisterUserRes.fromJson(Map<String, dynamic> json) => _$RegisterUserResFromJson(json);
 

@@ -8,10 +8,10 @@ part of 'register_user_res.dart';
 
 RegisterUserRes _$RegisterUserResFromJson(Map<String, dynamic> json) =>
     RegisterUserRes(
-      json['userId'] as String,
+      json['id'] as String,
     );
 
 Map<String, dynamic> _$RegisterUserResToJson(RegisterUserRes instance) =>
     <String, dynamic>{
-      'userId': instance.userId,
+      'id': instance.id,
     };

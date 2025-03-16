@@ -28,7 +28,6 @@ class RegisterViewModel extends ChangeNotifier {
     } catch (e) {
       toggleButton(true);
       print(e);
-      _navigationService.navigateTo('home'); // TODO: remove this line
     }
   }
 

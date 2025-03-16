@@ -7,17 +7,17 @@ part 'fetch_location_data_res.g.dart';
 @JsonSerializable()
 class FetchLocationDataRes {
   final List<ForecastItem> forecast;
-  final List<ForecastItem>? forecastHistory;
-  final CurrUvData current;
-  final int reccOutdoorTime;
+  final List<ForecastItem> pastWeek;
+  final CurrUvData currentUvData;
+  final int recOutdoor;
   final String advice;
   final int factor;
 
   FetchLocationDataRes(
     this.forecast,
-    this.forecastHistory,
-    this.current,
-    this.reccOutdoorTime,
+    this.pastWeek,
+    this.currentUvData,
+    this.recOutdoor,
     this.advice,
     this.factor,
   );

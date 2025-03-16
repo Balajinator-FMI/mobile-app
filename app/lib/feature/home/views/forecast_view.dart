@@ -22,7 +22,7 @@ class ForecastView extends StatelessWidget {
           final day = forecast[index];
           return _buildUVCard(
             day.date,
-            day.UVIndex,
+            day.uvIndex,
           );
         },
       ),
