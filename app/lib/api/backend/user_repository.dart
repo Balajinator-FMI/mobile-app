@@ -22,4 +22,8 @@ class UserRepository {
   Future<Map<String, Object>> diagnoseUser(String base64Image) async {
     return await _userService.diagnoseUser(base64Image);
   }
+
+  Future<double> getGeomagneticStormDst() async {
+    return await _userService.getGeomagneticStormDst();
+  }
 }

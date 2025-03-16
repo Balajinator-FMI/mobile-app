@@ -47,16 +47,6 @@ class ChatViewModel extends ChangeNotifier {
     notifyListeners();
     scrollToBottom(200);
 
-    // MOCK
-    await Future.delayed(const Duration(seconds: 1), () {
-      messages.add(ChatMessage(
-        text: 'I received your image!',
-        isUser: false,
-      ));
-      notifyListeners();
-    });
-    scrollToBottom(1100);
-
     try {
       final result = await _userRepository.diagnoseUser(base64Image);
 

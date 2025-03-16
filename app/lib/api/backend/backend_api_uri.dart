@@ -15,4 +15,5 @@ class BackendApiUri {
   }
 
   Uri diagnoseUser() => Uri.parse('$_baseUrl/ml/diagnosis');
+  Uri getGeomagneticStormDst() => Uri.parse('$_baseUrl/ml/dst');
 }

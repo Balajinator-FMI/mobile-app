@@ -11,6 +11,7 @@ class HomeViewModel extends ChangeNotifier {
   bool _isLoading = true;
   LocationData? _currLocation;
   FetchLocationDataRes? _locationData;
+  double _geomagneticStormDst = 0;
   final _userRepository = DependencyInjection.getIt<UserRepository>();
   final _navigationService = DependencyInjection.getIt<NavigationService>();
   final _userLocalStorage = DependencyInjection.getIt<UserLocalStorage>();
@@ -37,6 +38,7 @@ class HomeViewModel extends ChangeNotifier {
       //   30, // Mock UV protection factor
       // );
       _locationData = await _userRepository.fetchLocationData(_currLocation!.latitude!, _currLocation!.longitude!);
+      _geomagneticStormDst = await _userRepository.getGeomagneticStormDst();
     } catch (e) {
       print(e);
     }
@@ -81,6 +83,7 @@ class HomeViewModel extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
   FetchLocationDataRes get locationData => _locationData!;
+  double get geomagneticStormDst => _geomagneticStormDst;
 }
 
 // // Mock ForecastItem list

@@ -34,6 +34,7 @@ class AppStrings {
   static const String failedToRegisterUser = 'Failed to register user';
   static const String failedToLoadLocationData = 'Failed to load location data';
   static const String failedToDiagnoseUser = 'Failed to diagnose user';
+  static const String failedToGetGeomagneticStormDst = 'Failed to get geomagnetic storm DST';
 
   // Buttons:
   static const String register = 'Register';

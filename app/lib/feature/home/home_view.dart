@@ -68,6 +68,11 @@ class HomeView extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           UVTimeBarChartView(outdoorTimes: viewModel.getOutdoorTimes()),
+          const SizedBox(height: 16),
+          AdviceView(
+            advice: 'There is ${viewModel.geomagneticStormDst.toInt()}% chance of geomagnetic storm today.',
+            icon: Icons.warning,
+          ),
         ],
       ),
     );

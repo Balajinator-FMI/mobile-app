@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 
 class AdviceView extends StatelessWidget {
   final String advice;
+  final IconData icon;
 
-  const AdviceView({required this.advice, super.key});
+  const AdviceView({
+    required this.advice,
+    this.icon = Icons.lightbulb,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +23,8 @@ class AdviceView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(
-            Icons.lightbulb,
+          Icon(
+            icon,
             color: AppStyle.textColor,
             size: 42,
           ),

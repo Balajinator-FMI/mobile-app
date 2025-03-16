@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:app/api/backend/backend_api_uri.dart';
 import 'package:app/api/backend/dto/diagnose_user_res.dart';
 import 'package:app/api/backend/dto/fetch_location_data_res.dart';
+import 'package:app/api/backend/dto/get_geomagnetic_storm_dst.dart';
 import 'package:app/api/backend/dto/register_user_req.dart';
 import 'package:app/api/backend/dto/register_user_res.dart';
 import 'package:app/static/app_strings.dart';
@@ -83,6 +84,19 @@ class UserService {
       return diagnosis;
     } else {
       throw Exception(AppStrings.failedToDiagnoseUser);
+    }
+  }
+
+  Future<double> getGeomagneticStormDst() async {
+    final response = await http.get(_backendApiUri.getGeomagneticStormDst()).onError((error, stackTrace) {
+      throw Exception(AppStrings.failedToEstablishConnectionWithServer);
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      final responseBody = json.decode(response.body);
+      return GetGeomagneticStormDst.fromJson(responseBody).dst;
+    } else {
+      throw Exception(AppStrings.failedToGetGeomagneticStormDst);
     }
   }
 }
