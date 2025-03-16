@@ -70,7 +70,7 @@ class HomeView extends StatelessWidget {
           UVTimeBarChartView(outdoorTimes: viewModel.getOutdoorTimes()),
           const SizedBox(height: 16),
           AdviceView(
-            advice: 'There is ${viewModel.geomagneticStormDst.toInt()}% chance of geomagnetic storm today.',
+            advice: getGeomagneticStormAdvice(viewModel.geomagneticStormDst),
             icon: Icons.warning,
           ),
         ],
@@ -105,5 +105,17 @@ class HomeView extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String getGeomagneticStormAdvice(double dst) {
+    if (dst < -50) {
+      return 'There is a slight chance of geomagnetic storm today.';
+    } else if (dst < -100) {
+      return 'There is a high chance of geomagnetic storm today.';
+    } else if (dst > -50 && dst < 0) {
+      return 'There is very little chance of geomagnetic storm today.';
+    } else {
+      return 'There is no chance of geomagnetic storm today.';
+    }
   }
 }
